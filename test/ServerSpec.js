@@ -18,20 +18,7 @@ var xbeforeEach = function() {};
 /************************************************************/
 
 
-describe('my first test', function() {
-
-  var server;
-
-  before(function() {
-    server = app.listen(4568, function() {
-      console.log('Shortly is listening on 4568');
-    });
-  });
-
-  after(function() {
-    server.close();
-  });
-
+describe('', function() {
   beforeEach(function() {
     // log out currently signed in user
     request('http://127.0.0.1:4568/logout', function(error, res, body) {});
@@ -251,7 +238,7 @@ describe('my first test', function() {
 
   }); // 'Priviledged Access'
 
-  xdescribe('Account Creation:', function() {
+  describe('Account Creation:', function() {
 
     it('Signup creates a user record', function(done) {
       var options = {
@@ -299,7 +286,7 @@ describe('my first test', function() {
 
   }); // 'Account Creation'
 
-  xdescribe('Account Login:', function() {
+  describe('Account Login:', function() {
 
     var requestWithSession = request.defaults({jar: true});
 
