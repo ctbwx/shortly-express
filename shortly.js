@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var util = require('./lib/utility');
 var partials = require('express-partials');
 var bodyParser = require('body-parser');
@@ -11,7 +12,7 @@ var Links = require('./app/collections/links');
 var Link = require('./app/models/link');
 var Click = require('./app/models/click');
 
-// Need to require sessions, and cookies, to make persistent login functional. 
+// Need to require sessions, and cookies, to make persistent login functional.
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use(bodyParser.json());
 // Parse forms (signup/login)
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
+app.use(session({secret: 'keyboard cat', resave: false, saveUninitialized: true, cookie: { secure: false }}));
 
 
 app.get('/', function(req, res) {
