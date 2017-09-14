@@ -7,14 +7,31 @@ var User = db.Model.extend({
   hasTimestamps: false,
   // bcrypt passwords.
   signup: function(req, res) {
-    db.knex('users').insert(req.body).then(() => {
-      console.log('Message posted to users table.', JSON.stringify(req.body));
-    });
-    res.render('index');
+    db.knex('users').where({username: req.body.username}).select('username')
+      .then(data => {
+        if (data.length === 0) {
+          db.knex('users').insert(req.body).then(() => {
+          });
+        } else {
+        }
+        res.render('index');
+      });
   },
   login: function() {
     // cross reference encrypted passwords with request body passwords to authorize.
-  }
+
+  },
+  getUser: function(req, res) {
+    db.knex('users').where({
+      username: req.body.username
+    }).select('username').then(data => {
+      return data[0].username;
+    }).then(user => {
+      req.session.user = user;
+      res.end();
+    });
+  },
+
 });
 
 module.exports = User;

@@ -28,10 +28,14 @@ app.use(session({secret: 'keyboard cat', resave: false, saveUninitialized: true,
 
 
 app.get('/', function(req, res) {
+  console.log('shortly.js, req.session.id: ', req.session.id);
+  console.log('shortly.js, req.session.user: ', req.session.user);
   res.render('index');
 });
 
 app.get('/create', function(req, res) {
+  console.log('shortly.js, req.session.id: ', req.session.id);
+  console.log('shortly.js, req.session.user: ', req.session.user);
   res.render('index');
 });
 
@@ -75,7 +79,7 @@ app.post('/links', function(req, res) {
 /************************************************************/
 // Write your authentication routes here
 /************************************************************/
-app.get('/partials', function(req, res) {
+app.get('/signup', function(req, res) {
   res.render('signup.ejs');
 });
 
@@ -84,6 +88,7 @@ app.post('/signup', function(req, res) {
 });
 
 app.get('/login', function(req, res) {
+
   res.render('login.ejs');
 });
 
@@ -92,7 +97,7 @@ app.post('/login', function(req, res) {
   // check whether u/p exists in database
   // true -> alter state to logged in
   // false -> shout at the user; redirect to sign up
-  res.end();
+  new User().getUser(req, res); // adds user object to req.session
 });
 
 
