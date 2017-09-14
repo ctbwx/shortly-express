@@ -11,6 +11,8 @@ var Links = require('./app/collections/links');
 var Link = require('./app/models/link');
 var Click = require('./app/models/click');
 
+// Need to require sessions, and cookies, to make persistent login functional. 
+
 var app = express();
 
 app.set('views', __dirname + '/views');
@@ -71,7 +73,7 @@ app.post('/links', function(req, res) {
 /************************************************************/
 // Write your authentication routes here
 /************************************************************/
-app.get('/signup', function(req, res) {
+app.get('/partials', function(req, res) {
   res.render('signup.ejs');
 });
 
@@ -84,6 +86,10 @@ app.get('/login', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
+  // receive a username and password
+  // check whether u/p exists in database
+  // true -> alter state to logged in
+  // false -> shout at the user; redirect to sign up
   res.end();
 });
 
